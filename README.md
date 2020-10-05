@@ -38,8 +38,8 @@
 ### Association
 
 - belongs_to :user
-- has_one :comments
-- has_one :purchases
+- has_one :comment
+- has_one :purchase
 
 ## comments テーブル
 
