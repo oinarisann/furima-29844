@@ -1,24 +1,99 @@
-# README
+# テーブル設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## users テーブル
 
-Things you may want to cover:
+| Column                | Type   | Options     |
+| --------------------- | ------ | ----------- |
+| nickname              | string | null: false |
+| email                 | string | null: false |
+| password              | string | null: false |
+| psaaword_confirmation | string | null: false |
+| family_name           | string | null: false |
+| first_name            | string | null: false |
+| family_name_kana      | string | null: false |
+| first_name_kana       | string | null: false |
+| birthday_year         | string | null: false |
+| birthday_month        | string | null: false |
+| birthday_day          | string | null: false |
 
-* Ruby version
+### Association
 
-* System dependencies
+- has_many :items
+- has_many :coments
+- has_many :purchase
 
-* Configuration
+## items テーブル
 
-* Database creation
+| Column               | Type       | Options     |
+| -------------------- | ---------- | ----------- |
+| user_id              | references | null: false, foreign_key: true |
+| product_name         | string     | null: false |
+| description_of_items | string     | null: false |
+| price                | integer    | null: false |
+| category             | integer    | null: false |
+| status               | integer    | null: false |
 
-* Database initialization
 
-* How to run the test suite
+### Association
 
-* Services (job queues, cache servers, search engines, etc.)
+- belongs_to :user
+- has_many :coment
+- has_many :purchase
+- has_many :images
 
-* Deployment instructions
+## coments テーブル
 
-* ...
+| Column    | Type       | Options                        |
+| --------- | ---------- | ------------------------------ |
+| user_id   | references | null: false, foreign_key: true |
+| item_id   | references | null: false, foreign_key: true |
+| content   | string     |                                |
+
+### Association
+
+- belongs_to :item
+- belongs_to :user
+
+## images テーブル
+
+| Column     | Type       | Options                        |
+| ---------- | ---------- | ------------------------------ |
+| image      | string     |                                |
+| item_id    | references | null: false, foreign_key: true |
+
+### Association
+
+- belongs_to :item
+
+## purchase テーブル(購入)
+
+| Column      | Type       | Options                        |
+| ----------- | ---------- | ------------------------------ |
+| user_id     | references | null: false, foreign_key: true |
+| item_id     | references | null: false, foreign_key: true |
+| card_number | string     | null: false |
+| exp_month   | string     | null: false |
+| exp_yaer    | string     | null: false |
+| cvc         | string     | null: false |
+
+### Association
+
+- belongs_to :user
+- has_many   :addresse
+
+## addresses テーブル(住所)
+
+| Column           | Type       | Options                        |
+| ---------------- | ---------- | ------------------------------ |
+| postal_code      | string     | null: false |<!-- 郵便番号 -->
+| prefecture       | integer    | null: false |<!-- 都道府県 -->
+| city             | string     | null: false |
+| house_number     | string     | null: false |
+| building_name    | string     |             |
+| telephone_number | string     | null: false |
+| charges          | integer    | null: false |<!-- 送料の負担 -->
+| shipping_date    | integer    | null: false |<!-- 発送日 -->
+
+### Association
+
+- belongs_to :purchase
