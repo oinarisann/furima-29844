@@ -12,87 +12,74 @@
 | first_name            | string | null: false |
 | family_name_kana      | string | null: false |
 | first_name_kana       | string | null: false |
-| birthday_year         | string | null: false |
-| birthday_month        | string | null: false |
-| birthday_day          | string | null: false |
+| birthday              | date   | null: false |
+
 
 ### Association
 
 - has_many :items
 - has_many :coments
-- has_many :purchase
+- has_many :purchases
 
 ## items テーブル
 
 | Column               | Type       | Options     |
 | -------------------- | ---------- | ----------- |
-| user_id              | references | null: false, foreign_key: true |
-| product_name         | string     | null: false |
-| description_of_items | string     | null: false |
+| user                 | references | null: false, foreign_key: true |
+| name                 | string     | null: false |
+| description          | text       | null: false |
 | price                | integer    | null: false |
-| category             | integer    | null: false |
-| status               | integer    | null: false |
-
+| category_id          | integer    | null: false |
+| status_id            | integer    | null: false |
+| charges_id           | integer    | null: false |<!-- 送料の負担 -->
+| prefecture_id        | integer    | null: false |<!-- 都道府県 -->
+| shipping_date_id     | integer    | null: false |<!-- 発送までの日数 -->
 
 ### Association
 
 - belongs_to :user
-- has_many :coment
-- has_many :purchase
-- has_many :images
+- has_one :comment
+- has_one :purchase
 
-## coments テーブル
+## comments テーブル
 
 | Column    | Type       | Options                        |
 | --------- | ---------- | ------------------------------ |
-| user_id   | references | null: false, foreign_key: true |
-| item_id   | references | null: false, foreign_key: true |
-| content   | string     |                                |
+| user      | references | null: false, foreign_key: true |
+| item      | references | null: false, foreign_key: true |
+| comment   | text       |                                |
 
 ### Association
 
 - belongs_to :item
 - belongs_to :user
 
-## images テーブル
-
-| Column     | Type       | Options                        |
-| ---------- | ---------- | ------------------------------ |
-| image      | string     |                                |
-| item_id    | references | null: false, foreign_key: true |
-
-### Association
-
-- belongs_to :item
-
-## purchase テーブル(購入)
+## purchases テーブル(購入)
 
 | Column      | Type       | Options                        |
 | ----------- | ---------- | ------------------------------ |
-| user_id     | references | null: false, foreign_key: true |
-| item_id     | references | null: false, foreign_key: true |
-| card_number | string     | null: false |
-| exp_month   | string     | null: false |
-| exp_yaer    | string     | null: false |
-| cvc         | string     | null: false |
+| user        | references | null: false, foreign_key: true |
+| item        | references | null: false, foreign_key: true |
+
 
 ### Association
 
 - belongs_to :user
-- has_many   :addresse
+- belongs_to :item
+- has_one    :address
 
 ## addresses テーブル(住所)
 
 | Column           | Type       | Options                        |
 | ---------------- | ---------- | ------------------------------ |
+| purchase         | references | null: false, foreign_key: true |
 | postal_code      | string     | null: false |<!-- 郵便番号 -->
-| prefecture       | integer    | null: false |<!-- 都道府県 -->
+| prefecture_id    | integer    | null: false |<!-- 都道府県 -->
 | city             | string     | null: false |
 | house_number     | string     | null: false |
 | building_name    | string     |             |
 | telephone_number | string     | null: false |
-| charges          | integer    | null: false |<!-- 送料の負担 -->
-| shipping_date    | integer    | null: false |<!-- 発送日 -->
+
 
 ### Association
 
