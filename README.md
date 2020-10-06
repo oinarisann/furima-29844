@@ -19,8 +19,8 @@
 ### Association
 
 - has_many :items
-- has_many :coments
-- has_many :purchase
+- has_many :comments
+- has_many :purchases
 
 ## items テーブル
 
@@ -37,8 +37,8 @@
 ### Association
 
 - belongs_to :user
-- has_many :coment
-- has_many :purchase
+- has_many :comments
+- has_many :purchases
 - has_many :images
 
 ## coments テーブル
@@ -79,7 +79,7 @@
 ### Association
 
 - belongs_to :user
-- has_many   :addresse
+- has_many   :addresses
 
 ## addresses テーブル(住所)
 
