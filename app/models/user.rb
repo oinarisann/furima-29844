@@ -4,20 +4,20 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  validates :email, {presence: true, format: { with: /\A\S+@\S+\.\S+\z/ }, uniqueness: { case_sensitive: false }}
+  
 
-  validates :nickname, presence: true, length: { maximum: 40 }
+  with_options presence: true do
+    validates :nickname, length: { maximum: 40 }
 
-  validates :password, presence: true, format:{ with: /\A[a-zA-Z0-9]+\z/ }, length: { minimum: 6 }
+    validates :password, format:{ with: /\A[a-zA-Z0-9]+\z/ }, length: { minimum: 6 }
 
-  validates :password_confirmation, presence: true, format:{ with: /\A[a-zA-Z0-9]+\z/ }, length: { minimum: 6 }
+    validates :password_confirmation, format:{ with: /\A[a-zA-Z0-9]+\z/ }, length: { minimum: 6 }
 
-  validates :family_name, presence: true, format:{ with: /\A[ぁ-んァ-ン一-龥]/ }
-  validates :last_name, presence: true, format:{ with: /\A[ぁ-んァ-ン一-龥]/ }
+    validates :family_name, format:{ with: /\A[ぁ-んァ-ン一-龥]/ }
+    validates :last_name, format:{ with: /\A[ぁ-んァ-ン一-龥]/ }
 
-  validates :family_name_kana, presence: true, 
-  format: { with: /\A[\p{katakana} ー－&&[^ -~｡-ﾟ]]+\z/}
-  validates :last_name_kana, presence: true,
-  format: { with: /\A[\p{katakana} ー－&&[^ -~｡-ﾟ]]+\z/}
-  validates :birth_date, presence: true
+    validates :family_name_kana, format: { with: /\A[\p{katakana} ー－&&[^ -~｡-ﾟ]]+\z/}
+    validates :last_name_kana, format: { with: /\A[\p{katakana} ー－&&[^ -~｡-ﾟ]]+\z/}
+    validates :birth_date 
+  end
 end
