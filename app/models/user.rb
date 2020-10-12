@@ -8,7 +8,6 @@ class User < ApplicationRecord
     validates :nickname, length: { maximum: 40 }
 
     validates :password, format: { with: /\A(?=.*?[a-z])(?=.*?\d)[\w-]+\z/ }, length: { minimum: 6 }
-    # /\A(?=.*?[a-z])(?=.*?\d)[\w-]{6,128}+\z/i
 
     validates :password_confirmation, format: { with: /\A(?=.*?[a-z])(?=.*?\d)[\w-]+\z/ }, length: { minimum: 6 }
 
