@@ -7,7 +7,7 @@ class CreateArcticles < ActiveRecord::Migration[6.0]
       t.integer    :status_id           , null: false
       t.integer    :charges_id          , null: false
       t.integer    :prefecture_id       , null: false
-      t.integer    :shipping_date_id    , null: false
+      t.integer    :shipping_id    , null: false
       t.string     :price               , null: false
       t.timestamps
     end
